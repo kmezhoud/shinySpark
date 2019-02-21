@@ -4,7 +4,7 @@
 + not working into shiny!
 
 ### reactive transformation function
-```{r}
+```r
   spark_clinical_trans_for_regression <- reactive({
     print("0")
     # clinicalData <- read.csv("ClinicalData.csv") #, na.strings=c("","NA")
@@ -67,7 +67,7 @@
   
   
   ### call reactive trasnformation and plot the result
-  ```{r}
+  ```r
   output$survival_regression_plot <- renderPlot({
     
     start_time_surv_reg <- Sys.time()

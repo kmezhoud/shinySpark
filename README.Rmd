@@ -1,23 +1,11 @@
----
-title: "Shiny - ggplot - spark - ml_linear_regression"
-output:
-  html_document:
-    number_sections: true
-    fig_caption: true
-    toc: true
-    fig_width: 7
-    fig_height: 4.5
-    theme: cosmo
-    highlight: tango
-    #code_folding: hide
-    html_notebook: null
-    df_print: paged 
-params: 
-  output_dir: "outputs"
----
 
+## try to run  `ml_linear_regression` function from spark and visualize plot by shiny
+
++ not working into shiny!
+
+### reactive transformation function
 ```{r}
-  spark_clinical_trans_for_regression <- function(){
+  spark_clinical_trans_for_regression <- reactive({
     print("0")
     # clinicalData <- read.csv("ClinicalData.csv") #, na.strings=c("","NA")
     # 
@@ -71,14 +59,17 @@ params:
        print("2")
     melted_clinicalData <- melt(probs_clinicalData, id.vars="OS_MONTHS", variable.name="group", value.name="prob") %>%
       collect()
-    return(melted_clinicalData)
     
     
-  }
+  })
   
   ```
-  ```r
+  
+  
+  ### call reactive trasnformation and plot the result
+  ```{r}
   output$survival_regression_plot <- renderPlot({
+    
     start_time_surv_reg <- Sys.time()
     spark_clinical_trans_for_regression() %>%
     ggplot( aes(x= OS_MONTHS, y= prob, group= group, color= group)) + 
